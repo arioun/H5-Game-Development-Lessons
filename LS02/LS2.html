@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>ls2-demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        CanvasRenderingContext2D.prototype.triangle = function triangle(x1, y1, x2, y2, x3, y3) { }
+        window.onload=function(){
+            var canvas=document.getElementById('canvas');
+            var context=canvas.getContext('2d');
+            
+            /*context.fillStyle='#ff0000';
+            context.fillRect(0,0,100,100);
+            context.clearRect(25, 25, 50, 50);
+            for (const key in context) {
+                const element = context[key];
+                if (context.hasOwnProperty(key)) {
+                    console.log('own:',element);
+                }
+                else{
+                    console.log('unown:',element);  
+                }
+            }*/
+            context.beginPath();
+            context.moveTo(20, 20);
+            context.lineTo(20, 100);
+            context.lineTo(70, 100);
+            context.strokeStyle='green';            
+            context.stroke();
+
+            
+            context.beginPath();
+            context.moveTo(20, 120);
+            context.lineTo(20, 220);
+            context.lineTo(70, 220);
+            context.strokeStyle='red';
+            context.stroke();
+            
+            
+        }
+    </script>
+    <style>
+        /*#canvas{
+            height: 150px;
+            width: 300px;
+        }*/
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+</body>
+</html>
