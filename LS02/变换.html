@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>变换</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            
+            context.save();
+            context.rotate(Math.PI / 180 * 10);
+            context.rect(50, 50, 100, 30);
+            context.strokeStyle='red';
+            context.stroke();
+            context.restore();
+            
+            context.save();
+            context.beginPath();
+            
+            //context.transform(2, 3, 3, 2, 2, 0);
+            context.rect(100, 100, 300, 200);
+            context.strokeStyle='blue';
+            context.stroke();
+            context.restore();
+            
+            
+            
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+</body>
+
+</html>

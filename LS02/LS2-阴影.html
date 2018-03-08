@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>阴影</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            context.fillStyle = 'red';
+            context.shadowOffsetX = 4;
+            context.shadowOffsetY = 4;
+            context.shadowColor = 'black';
+            context.shadowBlur = 4;
+            context.rect(50, 50, 100, 30);
+            context.fill();
+            
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+</body>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>裁剪</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+
+            
+            ctx.beginPath();
+            ctx.fillStyle = 'tomato';
+            ctx.arc(200, 200, 100, 0, Math.PI * 2, false);
+            ctx.fill(); 
+            ctx.clip();
+
+            ctx.beginPath(); 
+            ctx.fillStyle = '#333';
+            ctx.arc(300, 200, 100, 0, Math.PI * 2, false);
+            ctx.fill();
+
+            ctx.beginPath();
+            ctx.fillStyle = 'cornsilk';
+            ctx.arc(200, 300, 100, 0, Math.PI * 2, false);
+            ctx.fill(); 
+
+            ctx.beginPath();
+            ctx.strokeStyle = '#ccc';
+            ctx.lineWidth = 10;
+            ctx.arc(200, 200, 100, 0, Math.PI * 2, false);
+            ctx.stroke();
+            
+           
+            
+
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+</body>
+
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>填充</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+
+            var img = new Image();
+            img.src = "fill_20x20.gif";
+            img.onload=function(){
+            var pattern = context.createPattern(img, 'repeat');
+            context.fillStyle=pattern;
+            context.fillRect(0,0,400,400);
+            
+            var canvas2 = document.getElementById('canvas');
+            var context2 = canvas2.getContext('2d');
+            
+            
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <canvas id="canvas2" width="500px" height="500px"></canvas>
+</body>
+
+</html>

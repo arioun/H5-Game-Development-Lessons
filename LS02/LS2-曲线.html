@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>arc
+    </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="Pentagon.js"></script>
+    <script>
+        window.onload = function () {
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('2d');
+            
+            context.beginPath();
+            context.arc(100, 100, 50, Math.PI * -0.5, Math.PI * 1, true);
+            context.strokeStyle='red';
+            context.stroke();
+            
+            context.beginPath();
+            context.arc(100, 100, 50, Math.PI * 0, Math.PI * 0.5);
+            context.strokeStyle = 'red';
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(200, 200);
+            context.quadraticCurveTo(244, 72, 400, 92);
+            context.strokeStyle = 'blue';
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(200, 200);
+            context.bezierCurveTo(223, 62, 449, 161, 245, 365);
+            context.strokeStyle = 'blue';
+            context.stroke();
+
+            context.beginPath();
+            context.moveTo(200, 300);
+            context.bezierCurveTo(223, 62, 449, 161, 245, 365);
+            context.strokeStyle = 'yellow';
+            context.stroke();
+
+            context.beginPath();
+            context.Pentagon(300,300,500,500,400,400,350,350,380,380);
+            context.strokeStyle='yellow';
+            context.stroke();
+            
+        }
+    </script>
+    <style>
+        #canvas{border: 1px solid #000000;}
+    </style>
+</head>
+<body>
+    <canvas id="canvas"width="500px"height="500px"></canvas>
+</body>
+</html>
