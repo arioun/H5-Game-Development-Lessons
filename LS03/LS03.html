@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>图像基础</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script>
+        window.onload=function(){
+            var canvas=document.getElementById('canvas');
+            var context=canvas.getContext('2d');
+            
+            var canvas2 = document.getElementById('canvas2');
+            var context2 = canvas2.getContext('2d');
+            //context.fillStyle='green';
+            //context.fillRect(100,100,200,100);
+            
+            var spaceShip=new Image();
+            spaceShip.src='butterfly.jpg';
+            spaceShip.onload=function (){
+                context.drawImage(spaceShip, 50, 50,200,200);
+                drawBorder(context,0,0,32,32,'red');
+            }
+            
+            var spaceShip2 = new Image();
+            
+            spaceShip2.onload = function () {
+                context2.drawImage(spaceShip, 300, 300, 50, 50);
+                drawBorder(context, 0, 0, 32, 32, 'red');
+            }
+
+        }
+    </script>
+</head>
+<body>
+    <canvas id="canvas" width="500px" height="500px"></canvas>
+    <canvas id="canvas2" width="300px" height="300px"></canvas>
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>滤镜</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        
+        window.onload=function(){
+            var canvas=document.getElementById('canvas');
+            var context=canvas.getContext("2d");
+            var canvas2 = document.getElementById('canvas2');
+            var context2 = canvas2.getContext("2d");
+            var grey=document.getElementById('grey');
+            var black = document.getElementById('black');
+            var reverse = document.getElementById('reverse');
+            var blur = document.getElementById('blur');
+            var mos = document.getElementById('mos');
+            var image = new Image();
+            image.src='sls.jpg';
+            image.onload=function () {
+                context.drawImage(image, 0, 0, canvas.width, canvas.height);
+                
+            }
+            
+            grey.onclick=function greyEffect() {
+                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var pixelData = imageData.data;
+                for (var i = 0; i < canvas2.width * canvas2.height; i++) {
+
+                    var r = pixelData[i * 4 + 0];
+                    var g = pixelData[i * 4 + 1];
+                    var b = pixelData[i * 4 + 2];
+
+                    var grey = r * 0.3 + g * 0.59 + b * 0.11;
+
+                    pixelData[i * 4 + 0] = grey;
+                    pixelData[i * 4 + 1] = grey;
+                    pixelData[i * 4 + 2] = grey;
+                }
+
+                //context.putImageData(imagedata, dx, dy, dirtyX, dirtyY, dirtyWidth, dirtyHeight);
+                //dx：目标x     dirtyX：原图x    dirtyWidth:原图截取宽度
+                context2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height);
+                context.putImageData();
+            }
+            black.onclick=function blackEffect() {
+
+                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var pixelData = imageData.data;
+                for (var i = 0; i < canvas2.width * canvas2.height; i++) {
+
+                    var r = pixelData[i * 4 + 0];
+                    var g = pixelData[i * 4 + 1];
+                    var b = pixelData[i * 4 + 2];
+
+                    var grey = r * 0.3 + g * 0.59 + b * 0.11;
+                    if (grey > 125) {
+                        pv = 255;
+                    }
+                    else {
+                        pv = 0;
+                    }
+
+                    pixelData[i * 4 + 0] = pv;
+                    pixelData[i * 4 + 1] = pv;
+                    pixelData[i * 4 + 2] = pv;
+                }
+
+                context2.putImageData(imageData, 0, 0, 0, 0, canvas.width, canvas.height);
+            }
+
+            reverse.onclick= function reverseEffect() {
+
+                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var pixelData = imageData.data;
+                for (var i = 0; i < canvas2.width * canvas2.height; i++) {
+
+                    var r = pixelData[i * 4 + 0];
+                    var g = pixelData[i * 4 + 1];
+                    var b = pixelData[i * 4 + 2];
+
+                    pixelData[i * 4 + 0] = 255 - r;
+                    pixelData[i * 4 + 1] = 255 - g;
+                    pixelData[i * 4 + 2] = 255 - b;
+                }
+
+                context2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height);
+            }
+
+            blur.onclick=function blurEffect() {
+
+                var tmpImageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var tmpPixelData = tmpImageData.data;
+
+                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var pixelData = imageData.data;
+
+                var blurR = 3;
+                var totalnum = (2 * blurR + 1) * (2 * blurR + 1);
+
+                for (var i = blurR; i < canvas2.height - blurR; i++)
+                    for (var j = blurR; j < canvas2.width - blurR; j++) {
+
+                        var totalr = 0, totalg = 0, totalb = 0
+                        for (var dx = -blurR; dx <= blurR; dx++)
+                            for (var dy = -blurR; dy <= blurR; dy++) {
+
+                                var x = i + dx;
+                                var y = j + dy;
+
+                                var p = x * canvas2.width + y;
+                                totalr += tmpPixelData[p * 4 + 0];
+                                totalg += tmpPixelData[p * 4 + 1];
+                                totalb += tmpPixelData[p * 4 + 2];
+                            }
+
+                        var p = i * canvas2.width + j;
+                        pixelData[p * 4 + 0] = totalr / totalnum;
+                        pixelData[p * 4 + 1] = totalg / totalnum;
+                        pixelData[p * 4 + 2] = totalb / totalnum;
+                    }
+
+                context2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height);
+            }
+
+            mos.onclick=function mosaicEffect() {
+
+                var tmpImageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var tmpPixelData = tmpImageData.data;
+
+                var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+                var pixelData = imageData.data;
+
+                var size = 16;
+                var totalnum = size * size;
+                for (var i = 0; i < canvas2.height; i += size)
+                    for (var j = 0; j < canvas2.width; j += size) {
+
+                        var totalr = 0, totalg = 0, totalb = 0;
+                        for (var dx = 0; dx < size; dx++)
+                            for (var dy = 0; dy < size; dy++) {
+
+                                var x = i + dx;
+                                var y = j + dy;
+
+                                var p = x * canvas2.width + y;
+                                totalr += tmpPixelData[p * 4 + 0];
+                                totalg += tmpPixelData[p * 4 + 1];
+                                totalb += tmpPixelData[p * 4 + 2];
+                            }
+
+                        var p = i * canvas2.width + j;
+                        var resr = totalr / totalnum;
+                        var resg = totalg / totalnum;
+                        var resb = totalb / totalnum;
+
+                        for (var dx = 0; dx < size; dx++)
+                            for (var dy = 0; dy < size; dy++) {
+
+                                var x = i + dx;
+                                var y = j + dy;
+
+                                var p = x * canvas2.width + y;
+                                pixelData[p * 4 + 0] = resr;
+                                pixelData[p * 4 + 1] = resg;
+                                pixelData[p * 4 + 2] = resb;
+                            }
+                    }
+
+                context2.putImageData(imageData, 0, 0, 0, 0, canvas2.width, canvas2.height);
+
+            }
+        }
+    </script>
+    <style>
+        canvas{display: inline-block;margin: 0 auto;}
+    </style>
+</head>
+<body>
+        <canvas id="canvas" width="500px" height="500px"></canvas>
+        <canvas id="canvas2" width="500px" height="500px"></canvas>
+        <div>
+            <a id="grey" href="javascript:void(0)">Grey Effect</a>
+            <a href="javascript:void(0)"id='black'>Black and White Effect</a>
+            <a href="javascript:void(0)" id="reverse">Reverse Effect</a>
+            <a href="javascript:void(0)" id="blur">Blur Effect</a>
+            <a href="javascript:void(0)" id="mos">Mosaic Effect</a>
+        </div>
+</body>
+</html>
